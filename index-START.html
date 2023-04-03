@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML5 Canvas</title>
+  <link rel="icon" href="https://fav.farm/🔥" />
+</head>
+<body>
+<canvas id="draw" width="800" height="800"></canvas>
+<script>
+  const canvas = document.querySelector("#draw");
+  const ctx = canvas.getContext("2d"); //2d context from canvas Element, to draw lines, shapes
+  canvas.width = window.innerWidth; //to get the current window width
+  canvas.height = window.innerHeight; //to geht the current window height
+  ctx.strokeStyle = "red"; //sets the color
+  ctx.lineJoin = "round"; //style of corner when two lines meet => round
+  ctx.lineCap = "round"; //style of the end caps for lines => round
+
+  let isDrawing = false; //set to false => no drawing if no permanent mouse click down
+  let lastX = 0; //beginning of the line x-position
+  let lastY = 0; //beginning of the line y-position
+
+  function draw(e) {
+    if (!isDrawing) return; //stop the funct. from running when mouse not clicked down
+    console.log(e);
+    ctx.beginPath(); //to begin a new path/line
+    ctx.moveTo(lastX, lastY); //starting point of the line
+    ctx.lineTo(e.offsetX, e.offsetY); //draws a line from the starting point to the end point
+  }
+
+  canvas.addEventListener("mousemove", draw); //visible all the data where mouse is moving on the canvas
+  canvas.addEventListener("mousedown", () => isDrawing = true);
+  canvas.addEventListener("mouseup", () => isDrawing = false);
+  canvas.addEventListener("mouseout", () => isDrawing = false);
+
+</script>
+
+<style>
+  html, body {
+    margin: 0;
+  }
+</style>
+
+</body>
+</html>
